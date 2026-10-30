@@ -16,10 +16,6 @@ A single-page portfolio of my data cleaning, SQL and dashboard work, with links 
 | Used-car listings analysis | Excel | Pricing patterns explored with pivot tables and charts |
 | Economic growth and household debt in Kenya, 2010–2023 | Research design | A study testing whether economic growth drove household borrowing |
 
-## How the site is built
-
-Plain HTML, CSS and a little JavaScript in one file (`index.html`), with no build step. GitHub Pages serves it straight from the `main` branch.
-
 ## Contact
 
 emmjayjames@gmail.com
