@@ -1,724 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>James Munene Mwai — Data Analytics Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #080b10;
-      --surface: #0d1117;
-      --card: #111820;
-      --border: #1e2d3d;
-      --accent: #00f5c4;
-      --accent2: #ff4d6d;
-      --accent3: #ffd166;
-      --text: #e8edf3;
-      --muted: #6b7e94;
-      --heading-font: 'Bebas Neue', sans-serif;
-      --serif-font: 'DM Serif Display', serif;
-      --mono-font: 'DM Mono', monospace;
-      --body-font: 'Outfit', sans-serif;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>James Mwai – Data Analyst, Nairobi</title>
+<meta name="description" content="James Mwai is a data analyst in Nairobi. Data cleaning with pandas and OpenRefine, SQL databases, Excel analysis and Power BI dashboards.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23123C30'/%3E%3Crect x='7' y='9' width='18' height='4' rx='1' fill='%23FBE38E'/%3E%3Crect x='7' y='15' width='18' height='4' rx='1' fill='%23DCEFE3'/%3E%3Crect x='7' y='21' width='11' height='4' rx='1' fill='%23DCEFE3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F8F6;
+  --sheet:#FFFFFF;
+  --ink:#18231F;
+  --muted:#56635D;
+  --rule:#D5DCD7;
+  --forest:#1E5A47;
+  --forest-deep:#123C30;
+  --forest-soft:#E6EFEA;
+  --flag:#FBE38E;
+  --flag-ink:#7A4E00;
+  --clean:#DCEFE3;
+  --clean-ink:#14513C;
+  --removed:#F6D9D3;
+  --removed-ink:#8C2F22;
+  --sans:"Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg{display:block;max-width:100%}
+a{color:var(--forest);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--forest-deep);text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--forest);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--sheet);padding:8px 14px;border-radius:6px;z-index:50}
+.skip:focus{left:16px}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--body-font); overflow-x: hidden; }
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:20;background:rgba(18,60,48,.96);backdrop-filter:saturate(1.2) blur(8px);color:#fff}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{color:#fff;text-decoration:none;font-weight:700;font-size:17px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.brand:hover{color:#fff}
+.brand-mark{width:22px;height:22px;flex:none}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px}
+.nav li a{color:#D9E7E0;text-decoration:none;font-size:15px;font-weight:500;padding:8px 12px;border-radius:6px;display:block}
+.nav li a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav li a[aria-current="true"]{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){
+  .nav ul{display:none}
+  .nav .menu-btn{display:inline-flex}
+  .nav.open ul{display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--forest-deep);padding:8px 16px 16px}
+}
+.menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.3);color:#fff;font:inherit;font-size:15px;padding:6px 12px;border-radius:6px;cursor:pointer}
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 4rem;
-      background: rgba(8,11,16,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo { font-family: var(--heading-font); font-size: 1.6rem; letter-spacing: 0.08em; color: var(--accent); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-family: var(--mono-font); font-size: 0.78rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
-      transition: color 0.25s; position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 1px; background: var(--accent);
-      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { transform: scaleX(1); }
+/* ---------- Hero ---------- */
+.hero{background:var(--forest-deep);color:#fff;padding:72px 0 88px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:rgba(255,255,255,.08)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.035em;margin:0 0 22px;font-weight:800}
+.hero .lede{font-size:clamp(18px,2vw,21px);line-height:1.5;color:#D3E3DB;margin:0 0 28px;max-width:34ch}
+.hero .creds{margin:0 0 32px;padding:0;list-style:none;color:#B8CEC3;font-size:15px;line-height:1.5}
+.hero .creds li{padding-left:18px;position:relative;margin-bottom:4px}
+.hero .creds li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--flag)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;font-size:16px;padding:12px 20px;border-radius:8px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:background-color .15s,color .15s,border-color .15s}
+.btn-primary{background:var(--flag);color:var(--forest-deep)}
+.btn-primary:hover{background:#FFEDAD;color:var(--forest-deep)}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.35);background:transparent}
+.btn-ghost:hover{color:#fff;border-color:#fff;background:rgba(255,255,255,.06)}
 
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center; padding: 8rem 4rem 4rem;
-      position: relative; overflow: hidden;
-    }
-    .hero-grid-bg {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px; opacity: 0.3;
-      mask-image: radial-gradient(ellipse at 60% 50%, black 30%, transparent 70%);
-    }
-    .hero-glow {
-      position: absolute; width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,245,196,0.07) 0%, transparent 70%);
-      right: -100px; top: 50%; transform: translateY(-50%); pointer-events: none;
-    }
-    .hero-text { position: relative; z-index: 2; }
-    .hero-eyebrow {
-      font-family: var(--mono-font); font-size: 0.75rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem;
-      display: flex; align-items: center; gap: 0.8rem;
-    }
-    .hero-eyebrow::before { content: ''; width: 2.5rem; height: 1px; background: var(--accent); display: block; }
-    .hero-name {
-      font-family: var(--heading-font); font-size: clamp(3.5rem, 7vw, 7rem);
-      line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 0.6rem;
-    }
-    .hero-name .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
-    .hero-title {
-      font-family: var(--serif-font); font-style: italic;
-      font-size: clamp(1.1rem, 2.2vw, 1.6rem); color: var(--accent3);
-      margin: 1.2rem 0 1.8rem; min-height: 2.2rem;
-    }
-    .hero-desc { font-size: 1rem; line-height: 1.8; color: var(--muted); max-width: 440px; margin-bottom: 2.5rem; }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* Data row demo */
+.demo{background:var(--sheet);color:var(--ink);border-radius:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--rule);background:#FBFCFB}
+.demo-title{font-size:14px;font-weight:600;color:var(--muted);margin:0}
+.demo-title strong{color:var(--ink);font-family:var(--mono);font-weight:500}
+.toggle{font:inherit;font-size:14px;font-weight:600;background:var(--forest);color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+.toggle:hover{background:var(--forest-deep)}
+.cells{list-style:none;margin:0;padding:6px 0}
+.cell{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:start;gap:14px;padding:10px 18px}
+.cell + .cell{border-top:1px dashed #E5EAE7}
+.cell .k{font-size:13px;color:var(--muted);padding-top:5px}
+.v{display:inline-block;font-family:var(--mono);font-size:15px;padding:3px 8px;border-radius:4px;background:var(--flag);color:var(--flag-ink);transition:background-color .45s ease,color .45s ease}
+.note{display:block;font-size:13px;color:var(--muted);margin-top:4px;line-height:1.4}
+.cell.is-clean .v{background:var(--clean);color:var(--clean-ink)}
+.cell .note .after{display:none}
+.cell.is-clean .note .before{display:none}
+.cell.is-clean .note .after{display:inline}
+.demo-foot{padding:12px 18px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.legend{display:flex;gap:14px;align-items:center}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px}
+.sw.flag{background:var(--flag)} .sw.clean{background:var(--clean)} .sw.removed{background:var(--removed)}
+@media (prefers-reduced-motion:reduce){.v{transition:none}}
 
-    .btn-primary {
-      font-family: var(--mono-font); font-size: 0.8rem; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 0.9rem 2rem;
-      background: var(--accent); color: var(--bg); border: none; border-radius: 2px;
-      text-decoration: none; font-weight: 500; cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s; display: inline-block;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,245,196,0.25); }
-    .btn-secondary {
-      font-family: var(--mono-font); font-size: 0.8rem; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 0.9rem 2rem;
-      background: transparent; color: var(--text); border: 1px solid var(--border);
-      border-radius: 2px; text-decoration: none; display: inline-block;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+@media (max-width:900px){
+  .hero{padding:48px 0 64px}
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+}
+@media (max-width:480px){.cell{grid-template-columns:1fr;gap:4px}.cell .k{padding-top:0}}
 
-    /* HERO VISUAL */
-    .hero-visual { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; }
-    .data-orb { position: relative; width: 360px; height: 360px; }
-    .orb-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid; animation: spin linear infinite; }
-    .orb-ring:nth-child(1) { border-color: rgba(0,245,196,0.2); animation-duration: 20s; }
-    .orb-ring:nth-child(2) { inset: 30px; border-color: rgba(255,77,109,0.15); animation-duration: 14s; animation-direction: reverse; }
-    .orb-ring:nth-child(3) { inset: 60px; border-color: rgba(255,209,102,0.1); animation-duration: 10s; }
-    .orb-core {
-      position: absolute; inset: 90px; border-radius: 50%;
-      background: radial-gradient(circle at 40% 35%, rgba(0,245,196,0.12), rgba(0,245,196,0.02));
-      border: 1px solid rgba(0,245,196,0.25);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 0.3rem; text-align: center; padding: 1rem;
-    }
-    .orb-icon { font-size: 2.2rem; }
-    .orb-stat-label { font-family: var(--mono-font); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
-    .data-point {
-      position: absolute; font-family: var(--mono-font); font-size: 0.7rem;
-      color: var(--accent); opacity: 0.7; animation: float 4s ease-in-out infinite;
-    }
-    .data-point:nth-child(5) { top: 10%; left: 8%; }
-    .data-point:nth-child(6) { top: 12%; right: 6%; animation-delay: 0.8s; color: var(--accent3); }
-    .data-point:nth-child(7) { bottom: 18%; left: 4%; animation-delay: 1.6s; color: var(--accent2); }
-    .data-point:nth-child(8) { bottom: 12%; right: 12%; animation-delay: 2.4s; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+/* ---------- Sections ---------- */
+section{padding:88px 0}
+.section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;align-items:end;margin-bottom:44px}
+.section-head h2{font-size:clamp(30px,3.6vw,42px);line-height:1.08;letter-spacing:-.025em;margin:0;font-weight:800}
+.section-head p{margin:0;color:var(--muted);max-width:56ch}
+@media (max-width:800px){.section-head{grid-template-columns:1fr;gap:12px}section{padding:64px 0}}
 
-    /* SECTIONS */
-    section { padding: 7rem 4rem; position: relative; }
-    .section-label {
-      font-family: var(--mono-font); font-size: 0.72rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;
-      display: flex; align-items: center; gap: 0.8rem;
-    }
-    .section-label::before { content: ''; width: 2rem; height: 1px; background: var(--accent); display: block; }
-    .section-heading {
-      font-family: var(--heading-font); font-size: clamp(3rem, 6vw, 5.5rem);
-      line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 3.5rem;
-    }
+h3{font-size:24px;line-height:1.2;letter-spacing:-.015em;margin:0 0 10px;font-weight:700}
+h4{font-size:16px;margin:0 0 8px;font-weight:700}
+p{margin:0 0 14px}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}
+.tools li{font-size:13px;font-weight:600;color:var(--forest);background:var(--forest-soft);padding:3px 10px;border-radius:999px}
 
-    /* ABOUT */
-    #about { background: var(--surface); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: center; }
-    .about-image-wrap { position: relative; }
-    .about-image-frame {
-      width: 100%; aspect-ratio: 4/5; background: var(--card);
-      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-      position: relative; display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 0.8rem;
-    }
-    .about-image-frame::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,245,196,0.05) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .about-placeholder { font-family: var(--mono-font); font-size: 0.72rem; color: var(--muted); text-align: center; padding: 1rem; line-height: 1.8; }
-    .about-accent-box {
-      position: absolute; bottom: -1.5rem; right: -1.5rem;
-      width: 92px; height: 92px; background: var(--accent); border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; z-index: 2;
-    }
-    .about-accent-box .icon { font-size: 1.6rem; }
-    .about-accent-box .lbl { font-family: var(--mono-font); font-size: 0.52rem; color: var(--bg); text-align: center; line-height: 1.4; padding: 0 4px; font-weight: 500; }
-    .about-body p { color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem; font-size: 1rem; }
-    .about-body p strong { color: var(--text); font-weight: 600; }
-    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; }
-    .about-tag {
-      font-family: var(--mono-font); font-size: 0.72rem; padding: 0.35rem 0.85rem;
-      border: 1px solid var(--border); border-radius: 2px; color: var(--muted);
-      letter-spacing: 0.08em; transition: border-color 0.2s, color 0.2s;
-    }
-    .about-tag:hover { border-color: var(--accent); color: var(--accent); }
+/* Featured project */
+.feature{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;overflow:hidden}
+.feature-top{padding:36px 36px 0;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px}
+.feature-top p{color:var(--muted)}
+.feature-top .why{border-left:3px solid var(--flag);padding-left:18px;color:var(--ink);font-size:16px;align-self:end;margin-bottom:6px}
+@media (max-width:860px){.feature-top{grid-template-columns:1fr;gap:16px;padding:28px 22px 0}}
+.tablist{display:flex;gap:4px;padding:28px 36px 0;border-bottom:1px solid var(--rule);overflow-x:auto}
+@media (max-width:860px){.tablist{padding:22px 22px 0}}
+.tab{font:inherit;font-size:15px;font-weight:600;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px 12px;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--forest-deep);border-bottom-color:var(--forest)}
+.tab small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+@media (max-width:480px){.tab{padding:10px 9px 12px;font-size:14px}.tablist{gap:0}}
+.panel{padding:32px 36px 36px}
+@media (max-width:860px){.panel{padding:24px 22px 28px}}
+.panel-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px}
+@media (max-width:860px){.panel-grid{grid-template-columns:1fr;gap:28px}}
+.issues{list-style:none;margin:0 0 20px;padding:0}
+.issues li{padding:10px 0;border-top:1px solid #EDF1EE;font-size:15.5px}
+.issues li:first-child{border-top:0}
+.issues code,.steps code,td code{font-family:var(--mono);font-size:.88em;background:#F1F4F2;padding:1px 5px;border-radius:3px}
+.result{margin:22px 0 0;font-size:15.5px;font-weight:600;color:var(--forest-deep);border-left:3px solid var(--forest);padding-left:14px}
+.aside{color:var(--muted);font-size:15px}
+.issues mark{background:var(--flag);color:var(--flag-ink);font-family:var(--mono);font-size:.88em;padding:1px 5px;border-radius:3px}
+.steps{counter-reset:s;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:s;position:relative;padding:0 0 16px 40px;font-size:15.5px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--forest-deep);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:12.5px;top:30px;bottom:4px;width:1px;background:var(--rule)}
+.ba{margin:24px 0 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.ba-cap{font-size:13px;color:var(--muted);padding:10px 14px;background:#FBFCFB;border-bottom:1px solid var(--rule);margin:0}
+.ba-scroll{overflow-x:auto}
+.ba table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.ba th{text-align:left;font-weight:600;color:var(--muted);font-size:12.5px;padding:8px 12px;border-bottom:1px solid var(--rule);white-space:nowrap}
+.ba td{padding:8px 12px;font-family:var(--mono);white-space:nowrap;border-bottom:1px solid #EEF2EF}
+.ba tr:last-child td{border-bottom:0}
+.ba td.row-label{font-family:var(--sans);font-weight:600;font-size:12.5px;color:var(--muted)}
+.ba td span{padding:2px 6px;border-radius:3px}
+.ba td .d{background:var(--flag);color:var(--flag-ink)}
+.ba td .c{background:var(--clean);color:var(--clean-ink)}
+.ba td .x{background:var(--removed);color:var(--removed-ink)}
+.files{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.file{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;text-decoration:none;border:1px solid var(--rule);background:var(--sheet);padding:9px 14px;border-radius:8px;color:var(--ink)}
+.file:hover{border-color:var(--forest);color:var(--forest-deep)}
+.file svg{width:16px;height:16px;flex:none;color:var(--forest)}
 
-    /* SKILLS */
-    #skills { background: var(--bg); }
-    .skills-categories {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px; background: var(--border); border: 1px solid var(--border);
-    }
-    .skill-card { background: var(--card); padding: 2rem 1.8rem; transition: background 0.25s; position: relative; overflow: hidden; }
-    .skill-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
-    }
-    .skill-card:hover { background: #151f2a; }
-    .skill-card:hover::before { transform: scaleX(1); }
-    .skill-card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-    .skill-card-title { font-family: var(--heading-font); font-size: 1.2rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
-    .skill-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .skill-list li {
-      font-family: var(--mono-font); font-size: 0.7rem; padding: 0.25rem 0.6rem;
-      background: rgba(0,245,196,0.06); border: 1px solid rgba(0,245,196,0.15);
-      color: var(--accent); border-radius: 2px; letter-spacing: 0.06em;
-    }
+/* Project grid */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;margin-top:24px}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:30px;display:flex;flex-direction:column}
+.span-7{grid-column:span 7}.span-5{grid-column:span 5}.span-12{grid-column:span 12}
+@media (max-width:900px){.span-7,.span-5{grid-column:span 12}}
+.card p{color:var(--muted)}
+.card .push{margin-top:auto}
+.meta{font-size:14px;color:var(--muted);margin:0 0 14px}
+details{border-top:1px solid var(--rule);margin-top:18px;padding-top:4px}
+summary{cursor:pointer;font-weight:600;font-size:15px;color:var(--forest-deep);padding:10px 0;list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"";width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .2s;margin-right:4px}
+details[open] summary::before{transform:rotate(45deg) translate(-2px,-2px)}
+@media (prefers-reduced-motion:reduce){summary::before{transition:none}}
+details .inner{padding:4px 0 6px;font-size:15.5px}
+details .inner p{color:var(--ink)}
+details ul{margin:0 0 12px;padding-left:20px}
+details li{margin-bottom:6px}
 
-    /* PROJECTS */
-    #projects { background: var(--surface); }
-    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); }
-    .project-card {
-      background: var(--card); padding: 2.5rem; position: relative;
-      overflow: hidden; transition: background 0.25s;
-      display: flex; flex-direction: column; cursor: pointer;
-    }
-    .project-card:hover { background: #151f2a; }
-    .project-num { font-family: var(--heading-font); font-size: 4rem; color: var(--border); line-height: 1; margin-bottom: 1rem; transition: color 0.25s; }
-    .project-card:hover .project-num { color: rgba(0,245,196,0.12); }
-    .project-type { font-family: var(--mono-font); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
-    .project-title { font-family: var(--serif-font); font-size: 1.4rem; color: var(--text); margin-bottom: 0.9rem; line-height: 1.3; }
-    .project-desc { font-size: 0.9rem; line-height: 1.75; color: var(--muted); flex: 1; margin-bottom: 1.5rem; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-    .project-tag {
-      font-family: var(--mono-font); font-size: 0.65rem; padding: 0.2rem 0.55rem;
-      background: rgba(255,77,109,0.08); border: 1px solid rgba(255,77,109,0.2);
-      color: var(--accent2); border-radius: 2px; letter-spacing: 0.06em;
-    }
-    .project-link {
-      font-family: var(--mono-font); font-size: 0.75rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 0.5rem; width: fit-content;
-      transition: gap 0.2s;
-    }
-    .project-card:hover .project-link { gap: 0.8rem; }
+/* schema chips */
+.schema{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:6px 0 20px}
+.schema div{background:#FAFBFA;border:1px solid #E6EBE8;border-radius:10px;padding:12px 14px}
+.schema h4{font-size:13px;color:var(--muted);font-weight:600;margin:0 0 6px}
+.schema p{margin:0;font-family:var(--mono);font-size:12.5px;color:var(--ink);line-height:1.6}
+.schema .outcome{background:var(--forest-deep);border-color:var(--forest-deep)}
+.schema .outcome h4{color:#B8CEC3}
+.schema .outcome p{color:var(--flag)}
+.questions{margin:0 0 18px;padding-left:20px;color:var(--ink);font-size:15.5px}
+.questions li{margin-bottom:6px}
 
-    /* CONTACT */
-    #contact { background: var(--bg); }
-    .contact-inner { max-width: 760px; }
-    .contact-big { font-family: var(--heading-font); font-size: clamp(3rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
-    .contact-big .hollow { color: transparent; -webkit-text-stroke: 1.5px var(--accent3); }
-    .contact-sub { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 480px; margin-bottom: 3rem; }
-    .contact-cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
-    .contact-card {
-      display: flex; align-items: center; gap: 0.8rem;
-      padding: 1rem 1.4rem; background: var(--card); border: 1px solid var(--border);
-      border-radius: 2px; text-decoration: none;
-      transition: border-color 0.2s, transform 0.2s; color: var(--text);
-    }
-    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .contact-card-icon { font-size: 1.2rem; }
-    .contact-card-info { display: flex; flex-direction: column; }
-    .contact-card-label { font-family: var(--mono-font); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-    .contact-card-val { font-size: 0.88rem; color: var(--text); }
-    .contact-form { display: grid; gap: 1rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-label { font-family: var(--mono-font); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-    .form-input, .form-textarea {
-      background: var(--card); border: 1px solid var(--border); border-radius: 2px;
-      padding: 0.85rem 1rem; color: var(--text); font-family: var(--body-font);
-      font-size: 0.95rem; outline: none; transition: border-color 0.2s; resize: none;
-    }
-    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
-    .form-textarea { min-height: 120px; }
+/* ERD */
+.erd{margin:6px 0 18px;border:1px solid #E6EBE8;border-radius:10px;background:#FAFBFA;padding:10px}
+.erd text{font-family:var(--sans)}
 
-    /* FOOTER */
-    footer {
-      padding: 2.5rem 4rem; background: var(--bg);
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .footer-logo { font-family: var(--heading-font); font-size: 1.3rem; letter-spacing: 0.08em; color: var(--accent); }
-    .footer-copy { font-family: var(--mono-font); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; }
-    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
-    .footer-links a { font-family: var(--mono-font); font-size: 0.7rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
+/* bar chart */
+.bars{margin:8px 0 16px}
+.bar-row{display:grid;grid-template-columns:78px minmax(0,1fr) 52px;align-items:center;gap:10px;font-size:14px;margin-bottom:6px}
+.bar-row .lbl{color:var(--ink)}
+.bar-track{height:14px;background:#EEF2EF;border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;background:var(--forest);border-radius:3px}
+.bar-row.top .bar-fill{background:var(--forest-deep)}
+.bar-row .n{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 16px}
+.facts div{border:1px solid #E6EBE8;border-radius:10px;padding:10px 12px;background:#FAFBFA}
+.facts b{display:block;font-size:20px;letter-spacing:-.01em}
+.facts span{font-size:13px;color:var(--muted);line-height:1.35;display:block}
+@media (max-width:480px){.facts{grid-template-columns:1fr}}
+.owner-table{width:100%;border-collapse:collapse;font-size:14px;margin:0 0 6px}
+.owner-table td{padding:6px 0;border-bottom:1px solid #EEF2EF}
+.owner-table td:last-child{text-align:right}
+.owner-table tr.hi td{font-weight:700;color:var(--forest-deep)}
 
-    /* MODAL */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.8); z-index: 500; backdrop-filter: blur(6px);
-    }
-    .modal-overlay.open { display: block; }
-    .modal-box {
-      display: none; position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%, -50%); z-index: 600;
-      width: min(680px, 92vw); max-height: 85vh; overflow-y: auto;
-      background: #111820; border: 1px solid #1e2d3d; border-radius: 4px; padding: 2.5rem;
-    }
-    .modal-box.open { display: block; }
-    .modal-close {
-      position: absolute; top: 1.2rem; right: 1.4rem;
-      background: none; border: none; color: var(--muted);
-      font-size: 1.4rem; cursor: pointer; line-height: 1;
-    }
-    .modal-close:hover { color: var(--text); }
-    .modal-type { font-family: var(--mono-font); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
-    .modal-title { font-family: var(--serif-font); font-size: 1.8rem; color: var(--text); margin-bottom: 1.2rem; line-height: 1.2; }
-    .modal-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-    .modal-tag { font-family: var(--mono-font); font-size: 0.65rem; padding: 0.2rem 0.6rem; background: rgba(255,77,109,0.08); border: 1px solid rgba(255,77,109,0.2); color: var(--accent2); border-radius: 2px; }
-    .modal-body { font-size: 0.95rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
-    .modal-body p { margin-bottom: 0.9rem; }
-    .modal-body strong { color: var(--text); }
-    .modal-divider { height: 1px; background: var(--border); margin: 1.4rem 0; }
-    .modal-gh-btn {
-      font-family: var(--mono-font); font-size: 0.78rem; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 0.8rem 1.6rem;
-      background: var(--accent); color: var(--bg); border-radius: 2px;
-      text-decoration: none; font-weight: 500; display: inline-block;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .modal-gh-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,245,196,0.2); }
-    .modal-no-link { font-family: var(--mono-font); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; }
+/* research method chain */
+.chain{list-style:none;margin:6px 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chain li{font-size:13.5px;font-weight:600;background:#FAFBFA;border:1px solid #E6EBE8;border-radius:8px;padding:6px 10px}
+.chain li.arrow{border:0;background:none;padding:0;color:var(--muted);font-weight:400}
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      section { padding: 5rem 1.5rem; }
-      #hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 4rem; }
-      .hero-visual { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .skills-categories { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-    }
-  </style>
+/* slim personal project */
+
+/* ---------- Experience ---------- */
+.exp{background:var(--sheet);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.role{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:40px;padding:30px 0;border-top:1px solid var(--rule)}
+.role:first-of-type{border-top:0;padding-top:0}
+.role .when{color:var(--muted);font-size:15px}
+.role .org{font-weight:700;font-size:18px;margin:0 0 2px;color:var(--ink)}
+.role ul{margin:0;padding-left:20px}
+.role li{margin-bottom:8px}
+@media (max-width:800px){.role{grid-template-columns:1fr;gap:10px}}
+
+/* ---------- Toolkit ---------- */
+.kit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);border-radius:14px;background:var(--sheet);overflow:hidden}
+.kit > div{padding:26px 24px;border-left:1px solid var(--rule)}
+.kit > div:first-child{border-left:0}
+.kit h3{font-size:19px;margin-bottom:6px}
+.kit p.sub{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+.kit ul{list-style:none;margin:0;padding:0}
+.kit li{padding:7px 0;border-top:1px solid #EEF2EF;font-size:15px}
+.kit li span{display:block;font-size:13px;color:var(--muted)}
+@media (max-width:960px){.kit{grid-template-columns:repeat(2,minmax(0,1fr))}.kit > div:nth-child(3){border-left:0}.kit > div:nth-child(n+3){border-top:1px solid var(--rule)}}
+@media (max-width:560px){.kit{grid-template-columns:1fr}.kit > div{border-left:0;border-top:1px solid var(--rule)}.kit > div:first-child{border-top:0}}
+
+/* ---------- Education ---------- */
+.edu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+.edu-item{padding:20px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px}
+.edu-item .yr{font-weight:700;color:var(--forest);font-variant-numeric:tabular-nums}
+.edu-item h3{font-size:18px;margin:0 0 2px}
+.edu-item p{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:760px){.edu{grid-template-columns:1fr}}
+
+/* ---------- Contact ---------- */
+.contact{background:var(--forest-deep);color:#fff}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:center}
+.contact h2{font-size:clamp(32px,4.4vw,52px);line-height:1.04;letter-spacing:-.03em;margin:0 0 16px;font-weight:800}
+.contact p{color:#C9DBD2;max-width:46ch}
+.contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:26px}
+.contact-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.contact-row:first-child{border-top:0;padding-top:0}
+.contact-row .lab{font-size:13px;color:#A9C2B6;display:block}
+.contact-row a,.contact-row .val{color:#fff;font-weight:600;font-size:17px;word-break:break-all}
+.copy{font:inherit;font-size:14px;font-weight:600;background:var(--flag);color:var(--forest-deep);border:0;border-radius:6px;padding:8px 14px;cursor:pointer;min-width:88px}
+.copy:hover{background:#FFEDAD}
+@media (max-width:800px){.contact .wrap{grid-template-columns:1fr;gap:28px}}
+footer{background:var(--forest-deep);color:#93AFA2;font-size:14px;padding:22px 0 34px;border-top:1px solid rgba(255,255,255,.08)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:#C9DBD2}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">JM.</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-text">
-    <div class="hero-eyebrow">Data Analytics Portfolio</div>
-    <h1 class="hero-name">
-      JAMES<br>
-      <span class="line2">MUNENE</span>
-    </h1>
-    <p class="hero-title" id="typewriter"></p>
-    <p class="hero-desc">
-      I clean messy datasets, query databases, and build interactive dashboards
-      that tell compelling stories. Based in Nairobi — transforming data into
-      decisions, one project at a time.
-    </p>
-    <div class="hero-ctas">
-      <a href="#projects" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-secondary">Get In Touch</a>
-    </div>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="James Mwai, back to top">
+      <svg class="brand-mark" viewBox="0 0 22 22" aria-hidden="true"><rect x="2" y="3" width="18" height="4" rx="1" fill="#FBE38E"/><rect x="2" y="9" width="18" height="4" rx="1" fill="#DCEFE3"/><rect x="2" y="15" width="11" height="4" rx="1" fill="#DCEFE3"/></svg>
+      James Mwai
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navList">Menu</button>
+    <ul id="navList">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </div>
-  <div class="hero-visual">
-    <div class="data-orb">
-      <div class="orb-ring"></div>
-      <div class="orb-ring"></div>
-      <div class="orb-ring"></div>
-      <div class="orb-core">
-        <div class="orb-icon">📊</div>
-        <div class="orb-stat-label">Data Analytics</div>
-      </div>
-      <div class="data-point">SELECT *</div>
-      <div class="data-point">df.dropna()</div>
-      <div class="data-point">GROUP BY</div>
-      <div class="data-point">Power BI ✦</div>
-    </div>
-  </div>
-</section>
+</header>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">Who I Am</div>
-  <h2 class="section-heading">ABOUT<br>ME.</h2>
-  <div class="about-grid">
-    <div class="about-image-wrap">
-      <div class="about-image-frame">
-        <div class="about-placeholder">
-          📷<br><br>
-          Your photo here<br>
-          <span style="font-size:0.62rem;opacity:0.5">(replace with an img tag)</span>
-        </div>
-      </div>
-      <div class="about-accent-box">
-        <div class="icon">📍</div>
-        <div class="lbl">Nairobi, Kenya</div>
-      </div>
-    </div>
-    <div class="about-body">
-      <p>
-        Hi, I'm <strong>James Munene Mwai</strong> — a data enthusiast with a passion for
-        cleaning, analyzing, and visualizing data to drive meaningful decision-making.
-      </p>
-      <p>
-        I work with tools like <strong>Excel, Python (Pandas &amp; NumPy), SQL, Power BI,</strong>
-        and <strong>OpenRefine</strong> to take raw, messy datasets and transform them into
-        clear, actionable insights. I believe every dataset has a story — my job is to find it
-        and tell it well.
-      </p>
-      <p>
-        From building relational hospital and clinic databases in SQL, to crafting interactive
-        Power BI dashboards, I'm always finding new ways to make data work harder
-        for the people who need it.
-      </p>
-      <div class="about-tags">
-        <span class="about-tag">Data Cleaning</span>
-        <span class="about-tag">SQL</span>
-        <span class="about-tag">Python</span>
-        <span class="about-tag">Power BI</span>
-        <span class="about-tag">Excel</span>
-        <span class="about-tag">OpenRefine</span>
-        <span class="about-tag">Data Visualization</span>
-        <span class="about-tag">Google Sheets</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-label">What I Use</div>
-  <h2 class="section-heading">TOOLS &amp;<br>SKILLS.</h2>
-  <div class="skills-categories">
-    <div class="skill-card">
-      <div class="skill-card-icon">🧹</div>
-      <div class="skill-card-title">Data Cleaning</div>
-      <ul class="skill-list">
-        <li>Microsoft Excel</li>
-        <li>Python Pandas</li>
-        <li>NumPy</li>
-        <li>OpenRefine</li>
+<main id="main">
+<!-- ================= HERO ================= -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <h1>James Mwai</h1>
+      <p class="lede">Data analyst in Nairobi. I take messy, real-world data like farmer submissions, mobile loan books and supermarket sales, and turn it into clean tables, SQL databases and dashboards people can act on.</p>
+      <ul class="creds">
+        <li>Economics graduate, Karatina University</li>
+        <li>Certificate in Data Analysis &amp; Visualization, ADMI</li>
+        <li>Python, SQL, Excel, Power BI, OpenRefine</li>
       </ul>
+      <div class="actions">
+        <a class="btn btn-primary" href="#projects">See my projects</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-card-icon">📊</div>
-      <div class="skill-card-title">Visualization</div>
-      <ul class="skill-list">
-        <li>Power BI</li>
-        <li>Excel Charts</li>
-        <li>Google Sheets</li>
+
+    <figure class="demo" aria-labelledby="demoTitle" style="margin:0">
+      <div class="demo-head">
+        <p class="demo-title" id="demoTitle">One row from a farmer dataset, <strong>FARM-0177</strong></p>
+        <button class="toggle" id="demoToggle" aria-pressed="false">Clean this row</button>
+      </div>
+      <ul class="cells" id="demoCells" aria-live="polite">
+        <li class="cell"><span class="k">Crop</span><span><span class="v" data-dirty="Avocados" data-clean="Avocado">Avocados</span><span class="note"><span class="before">Plural spelling variant</span><span class="after">Matched to a standard crop name</span></span></span></li>
+        <li class="cell"><span class="k">Quantity (kg)</span><span><span class="v" data-dirty="139kg" data-clean="139">139kg</span><span class="note"><span class="before">Unit typed into the number</span><span class="after">Numeric, ready to sum</span></span></span></li>
+        <li class="cell"><span class="k">Price (KES)</span><span><span class="v" data-dirty="&quot;3,364&quot;" data-clean="3364">"3,364"</span><span class="note"><span class="before">Stored as text with a comma</span><span class="after">Converted to a number</span></span></span></li>
+        <li class="cell"><span class="k">Date</span><span><span class="v" data-dirty="22-Apr-2025" data-clean="2025-04-22">22-Apr-2025</span><span class="note"><span class="before">One of several date formats in the file</span><span class="after">A real date that can't be misread</span></span></span></li>
+        <li class="cell"><span class="k">GPS</span><span><span class="v" data-dirty="-1.292361156, 36.79757763" data-clean="-1.292361, 36.797578">-1.292361156, 36.79757763</span><span class="note"><span class="before">Raw coordinates, never checked</span><span class="after">Checked to be inside Nairobi, ready to map</span></span></span></li>
       </ul>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-icon">🗄️</div>
-      <div class="skill-card-title">Analysis &amp; Querying</div>
-      <ul class="skill-list">
-        <li>SQL</li>
-        <li>Google Sheets</li>
-        <li>Excel Pivot Tables</li>
-      </ul>
-    </div>
+      <figcaption class="demo-foot">
+        <span>A real row, cleaned with Python (pandas).</span>
+        <span class="legend"><span><i class="sw flag"></i>Needs fixing</span><span><i class="sw clean"></i>Clean</span></span>
+      </figcaption>
+    </figure>
   </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">Featured Work</div>
-  <h2 class="section-heading">PROJECTS.</h2>
-  <div class="projects-grid">
-
-    <div class="project-card" onclick="openModal('p1')">
-      <div class="project-num">01</div>
-      <div class="project-type">Data Cleaning</div>
-      <h3 class="project-title">Multi-Tool Data Cleaning Project</h3>
-      <p class="project-desc">
-        Used Microsoft Excel, Python Pandas, and OpenRefine to clean and standardize
-        dirty real-world datasets — handling missing values, duplicates, inconsistent
-        formatting, and outliers to produce analysis-ready data.
-      </p>
-      <div class="project-tags">
-        <span class="project-tag">Excel</span>
-        <span class="project-tag">Pandas</span>
-        <span class="project-tag">OpenRefine</span>
-        <span class="project-tag">NumPy</span>
-      </div>
-      <span class="project-link">View Details →</span>
-    </div>
-
-    <div class="project-card" onclick="openModal('p2')">
-      <div class="project-num">02</div>
-      <div class="project-type">SQL · Database Design</div>
-      <h3 class="project-title">Hospital Database System</h3>
-      <p class="project-desc">
-        Designed and managed a relational hospital database in SQL covering schema design,
-        data insertion, querying, and aggregations for patient and medical records management.
-        Built as a Data Tools final exam project.
-      </p>
-      <div class="project-tags">
-        <span class="project-tag">SQL</span>
-        <span class="project-tag">Relational DB</span>
-        <span class="project-tag">Schema Design</span>
-      </div>
-      <span class="project-link">View Details →</span>
-    </div>
-
-    <div class="project-card" onclick="openModal('p3')">
-      <div class="project-num">03</div>
-      <div class="project-type">SQL · Database Design</div>
-      <h3 class="project-title">Clinic Database System</h3>
-      <p class="project-desc">
-        Built a full clinic database in SQL modelling patient registration, appointments,
-        prescriptions, and doctor records — demonstrating real-world healthcare data
-        workflows in a structured relational format.
-      </p>
-      <div class="project-tags">
-        <span class="project-tag">SQL</span>
-        <span class="project-tag">Relational DB</span>
-        <span class="project-tag">Healthcare Data</span>
-      </div>
-      <span class="project-link">View Details →</span>
-    </div>
-
-    <div class="project-card" onclick="openModal('p4')">
-      <div class="project-num">04</div>
-      <div class="project-type">Data Visualization</div>
-      <h3 class="project-title">Interactive Power BI Dashboard</h3>
-      <p class="project-desc">
-        Created an interactive Power BI dashboard from a raw dataset, using slicers,
-        filters, and visual hierarchies to surface meaningful insights — making the data
-        explorable and presentation-ready for stakeholders.
-      </p>
-      <div class="project-tags">
-        <span class="project-tag">Power BI</span>
-        <span class="project-tag">Dashboards</span>
-        <span class="project-tag">Data Storytelling</span>
-      </div>
-      <span class="project-link">View Details →</span>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">Get In Touch</div>
-  <div class="contact-inner">
-    <h2 class="contact-big">LET'S<br>CONNECT <span class="hollow">TODAY.</span></h2>
-    <p class="contact-sub">
-      Open to data analytics roles, freelance projects, and collaborations.
-      Have a dataset that needs taming? I'd love to hear from you.
-    </p>
-    <div class="contact-cards">
-      <a href="https://github.com/jameskins-svg" class="contact-card" target="_blank">
-        <span class="contact-card-icon">🐙</span>
-        <div class="contact-card-info">
-          <span class="contact-card-label">GitHub</span>
-          <span class="contact-card-val">github.com/jameskins-svg</span>
-        </div>
-      </a>
-      <a href="mailto&#58;emmjayjames&#64;gmail&#46;com" class="contact-card">
-        <span class="contact-card-icon">✉️</span>
-        <div class="contact-card-info">
-          <span class="contact-card-label">Email</span>
-          <span class="contact-card-val">emmjayjames&#64;gmail.com</span>
-        </div>
-      </a>
-      <a href="https://linkedin.com/in/yourhandle" class="contact-card" target="_blank">
-        <span class="contact-card-icon">💼</span>
-        <div class="contact-card-info">
-          <span class="contact-card-label">LinkedIn</span>
-          <span class="contact-card-val">Add your LinkedIn handle</span>
-        </div>
-      </a>
-    </div>
-    <form class="contact-form" onsubmit="return false;">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Name</label>
-          <input type="text" class="form-input" placeholder="Your Name" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" placeholder="your@email.com" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Subject</label>
-        <input type="text" class="form-input" placeholder="Job Opportunity / Project / Collaboration" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="Tell me about your project or how I can help..."></textarea>
-      </div>
-      <button type="submit" class="btn-primary">Send Message →</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">JM.</div>
-  <p class="footer-copy">© 2025 James Munene Mwai · Nairobi, Kenya</p>
-  <ul class="footer-links">
-    <li><a href="https://github.com/jameskins-svg" target="_blank">GitHub</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</footer>
-
-<!-- MODALS -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
-<div class="modal-box" id="modalBox">
-  <button class="modal-close" onclick="closeModal()">✕</button>
-  <div id="modalContent"></div>
 </div>
 
-<script>
-  /* ── Typewriter ── */
-  const lines = [
-    'Turning raw data into real insights.',
-    'Cleaning datasets, one column at a time.',
-    'Building dashboards that drive decisions.',
-    'Finding the story hiding in your data.'
-  ];
-  let li = 0, ci = 0, deleting = false;
-  const tw = document.getElementById('typewriter');
-  function type() {
-    const cur = lines[li];
-    tw.textContent = deleting ? cur.slice(0, --ci) : cur.slice(0, ++ci);
-    if (!deleting && ci === cur.length) { deleting = true; setTimeout(type, 2000); return; }
-    if (deleting && ci === 0) { deleting = false; li = (li + 1) % lines.length; }
-    setTimeout(type, deleting ? 38 : 68);
-  }
-  type();
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <p>Each project starts with a real problem in the data and shows how I solved it. The business datasets are synthetic, so no real customer is exposed, and every file is linked so you can check the work.</p>
+    </div>
 
-  /* ── Nav highlight on scroll ── */
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    <!-- Featured: data cleaning -->
+    <article class="feature" aria-labelledby="clean-title">
+      <div class="feature-top">
+        <div>
+          <h3 id="clean-title">Cleaning three messy datasets from three sectors</h3>
+          <p>Agriculture, fintech and retail data, each with a different kind of mess. I explored each one, wrote repeatable cleaning scripts, and kept a log of every change so anyone can check the work or re-run it on new data.</p>
+          <ul class="tools" aria-label="Tools used"><li>Python (pandas, NumPy)</li><li>OpenRefine (GREL)</li><li>Excel</li></ul>
+        </div>
+        <p class="why">Most of an analyst's time goes into getting data ready. This project shows I can find the problems, choose the right tool for each one and leave a record others can follow.</p>
+      </div>
+
+      <div class="tablist" role="tablist" aria-label="Datasets">
+        <button class="tab" role="tab" id="t-agri" aria-controls="p-agri" aria-selected="true">Farmer submissions<small>pandas</small></button>
+        <button class="tab" role="tab" id="t-fin" aria-controls="p-fin" aria-selected="false" tabindex="-1">Mobile loans<small>OpenRefine, pandas</small></button>
+        <button class="tab" role="tab" id="t-ret" aria-controls="p-ret" aria-selected="false" tabindex="-1">Supermarket sales<small>OpenRefine, pandas</small></button>
+      </div>
+
+      <!-- Agriculture -->
+      <div class="panel" role="tabpanel" id="p-agri" aria-labelledby="t-agri">
+        <div class="panel-grid">
+          <div>
+            <h4>What was wrong</h4>
+            <ul class="issues">
+              <li>Duplicate submissions, some only visible once names were fixed</li>
+              <li>The same crop spelled many ways: <mark>Maiz</mark> <mark>Mahindi</mark> <mark>Maize (grain)</mark></li>
+              <li>Numbers stored as text: <mark>139kg</mark> <mark>KES 10896.15</mark> <mark>"3,364"</mark></li>
+              <li>Negative and missing quantities and prices</li>
+              <li>Nine date styles, plus dates that cannot exist: <mark>2024-02-30</mark> <mark>2025/13/01</mark></li>
+              <li>Impossible GPS points (<mark>987.654</mark>) and latitude and longitude typed in each other's columns</li>
+              <li>Misspelled sub-counties: <mark>DagorettiNorth</mark> <mark>Kasarni</mark> <mark>Roy Samba</mark></li>
+            </ul>
+          </div>
+          <div>
+            <h4>How I cleaned it</h4>
+            <ol class="steps">
+              <li>Trimmed spaces, fixed casing and removed duplicates, then checked for duplicates again at the end, because some rows only match once their crop names are fixed.</li>
+              <li>Mapped 53 spellings, including Swahili names such as mahindi, waru, mtama and ndengu, to 24 standard crop names.</li>
+              <li>Pulled numbers out of text, cleared impossible negative values and filled gaps with the median for that crop.</li>
+              <li>Converted all nine date styles to <code>YYYY-MM-DD</code>. Dates that cannot exist were left blank instead of guessed.</li>
+              <li>Converted compass coordinates (<code>1.32653S</code>) to decimal degrees, swapped reversed pairs back and removed points outside Nairobi.</li>
+              <li>Matched every district to Nairobi's constituencies and standardised phone numbers to one format.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="ba">
+          <p class="ba-cap">Before and after, two rows from the file</p>
+          <div class="ba-scroll">
+            <table>
+              <thead><tr><th scope="col"></th><th scope="col">Farmer ID</th><th scope="col">Crop</th><th scope="col">Qty (kg)</th><th scope="col">Date</th><th scope="col">Latitude</th><th scope="col">Longitude</th></tr></thead>
+              <tbody>
+                <tr><td class="row-label">Before</td><td>FARM-0073</td><td><span class="d">Pineapples</span></td><td>311</td><td><span class="d">14 March 2025</span></td><td>-1.296232187</td><td>36.70125025</td></tr>
+                <tr><td class="row-label">After</td><td>FARM-0073</td><td><span class="c">Pineapple</span></td><td>311</td><td><span class="c">2025-03-14</span></td><td>-1.296232</td><td>36.701250</td></tr>
+                <tr><td class="row-label">Before</td><td>FARM-0200</td><td><span class="d">PINEAPPLES</span></td><td>264</td><td>09/08/2025</td><td><span class="d">-58.43317</span></td><td><span class="d">987.654</span></td></tr>
+                <tr><td class="row-label">After</td><td>FARM-0200</td><td><span class="c">Pineapple</span></td><td>264</td><td><span class="c">2025-08-09</span></td><td colspan="2"><span class="x">Cleared: outside Nairobi</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="result">Result: 200 raw rows became 188 unique submissions, with every step recorded in a cleaning log.</p>
+        <div class="files">
+          <a class="file" href="https://drive.google.com/file/d/1Hwe11Z6cEnsRaL9zLtTs3sSMTBYHq8KO/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 1.5h5l3 3v10H4z"/><path d="M9 1.5v3h3"/></svg>Cleaning write-up and code</a>
+          <a class="file" href="https://drive.google.com/file/d/13N5WzjnMfriGM5i4wSx33Y1ekmR-pYSv/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>Raw data</a>
+          <a class="file" href="https://docs.google.com/spreadsheets/d/1t8v5nVObKOmM3eP7j2Dr2xLuFwNILFX-reb4xSdzWbE/edit?usp=sharing"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>Cleaned data</a>
+        </div>
+      </div>
+
+      <!-- Fintech -->
+      <div class="panel" role="tabpanel" id="p-fin" aria-labelledby="t-fin" hidden>
+        <div class="panel-grid">
+          <div>
+            <h4>What was wrong</h4>
+            <ul class="issues">
+              <li>Names typed inconsistently: <mark>Mohamed, James</mark> <mark>Kamau. Makori</mark> <mark>Collins-khamisi</mark></li>
+              <li>Mobile numbers with an extra 0 after +254, or prefixes no Kenyan mobile uses</li>
+              <li>Dates mixing day-first and month-first in the same format: <mark>21-05-2025</mark> <mark>04-18-2025</mark></li>
+              <li>An interest rate of exactly 5% far more often than any other, likely a filled-in default</li>
+              <li>Loan amounts in two very different size groups</li>
+            </ul>
+            <p class="aside">I explored the data in OpenRefine first, because its facets show every variant of a value at once. Then I wrote the final rules in pandas so they can be re-run on next quarter's data.</p>
+          </div>
+          <div>
+            <h4>How I cleaned it</h4>
+            <ol class="steps">
+              <li>Turned every name into First Last: reversed <code>Surname, First</code> entries and removed stray full stops and hyphens.</li>
+              <li>Wrote every number as <code>+254</code> plus the local number. The 29 that fail the Kenyan mobile check were cleared rather than guessed.</li>
+              <li>Used the fact that every application is from April to June 2025 to tell day-first from month-first dates. The 6 that could go either way follow the Kenyan day-first convention.</li>
+              <li>Applied the KES 100 to 1,000,000 range rule (no loans fall outside it) and recorded that loans split into two groups, so they should be analysed separately.</li>
+              <li>Recorded the suspicious 5% interest rate in the cleaning log rather than changing the values.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="ba">
+          <p class="ba-cap">Before and after, three applications</p>
+          <div class="ba-scroll">
+            <table>
+              <thead><tr><th scope="col"></th><th scope="col">Application</th><th scope="col">Customer name</th><th scope="col">Mobile</th><th scope="col">Application date</th></tr></thead>
+              <tbody>
+                <tr><td class="row-label">Before</td><td>L-100005</td><td><span class="d">Mutua, Samuel</span></td><td>+254719193821</td><td><span class="d">21-05-2025</span></td></tr>
+                <tr><td class="row-label">After</td><td>L-100005</td><td><span class="c">Samuel Mutua</span></td><td>+254719193821</td><td><span class="c">2025-05-21</span></td></tr>
+                <tr><td class="row-label">Before</td><td>L-100025</td><td>Wanjiru Mwai</td><td>+254784520940</td><td><span class="d">04-18-2025</span></td></tr>
+                <tr><td class="row-label">After</td><td>L-100025</td><td>Wanjiru Mwai</td><td>+254784520940</td><td><span class="c">2025-04-18</span></td></tr>
+                <tr><td class="row-label">Before</td><td>L-100000</td><td><span class="d">Mohamed, James</span></td><td><span class="d">+254070404961</span></td><td><span class="d">2025/04/05</span></td></tr>
+                <tr><td class="row-label">After</td><td>L-100000</td><td><span class="c">James Mohamed</span></td><td><span class="x">Cleared (not a valid number)</span></td><td><span class="c">2025-04-05</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="result">Result: all 187 applications kept, with consistent names, valid phone numbers and real dates for the full quarter.</p>
+        <div class="files">
+          <a class="file" href="https://drive.google.com/file/d/1rlE-hpf5Bk589dgxc65TO7Gy_5KwY-xb/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 1.5h5l3 3v10H4z"/><path d="M9 1.5v3h3"/></svg>OpenRefine steps with screenshots</a>
+          <a class="file" href="https://drive.google.com/file/d/1YioSrNpMGsh9LsPvj7oQSiNAAYOqyZyf/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>OpenRefine output</a>
+          <a class="file" href="https://docs.google.com/spreadsheets/d/1vTnKpMgyPciLSNB8OsTJ7_UipwmMnx0uO-u_2E0ZHLM/edit?usp=sharing"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>Cleaned data</a>
+        </div>
+      </div>
+
+      <!-- Retail -->
+      <div class="panel" role="tabpanel" id="p-ret" aria-labelledby="t-ret" hidden>
+        <div class="panel-grid">
+          <div>
+            <h4>What was wrong</h4>
+            <ul class="issues">
+              <li>15 transactions recorded twice</li>
+              <li>Seven date styles, with day-first and month-first both in use: <mark>12-04-2025</mark> <mark>01/29/2025</mark> <mark>26.05.25</mark></li>
+              <li>Currency text inside prices: <mark>KES 209.23</mark> <mark>KSh 396</mark> <mark>Sh. 214</mark></li>
+              <li>Totals divided by 1,000: <mark>Sh. 214 × 1 = 0.21</mark></li>
+              <li>One product under many names: <mark>Maziwa 1L</mark> <mark>SUGR</mark> <mark>unga ya mahindi</mark></li>
+              <li>Blank or inconsistent categories (<mark>Grocery</mark> <mark>Groceries</mark> <mark>Food</mark>) and five ways of writing M-Pesa or card</li>
+            </ul>
+          </div>
+          <div>
+            <h4>How I cleaned it</h4>
+            <ol class="steps">
+              <li>Removed the 15 duplicate transactions, so every Transaction ID is unique.</li>
+              <li>Read each date style with its own rule, then confirmed the rules by checking that every date lands between January and June 2025.</li>
+              <li>Merged 55 product spellings into 22 products and moved brand names (Colgate, OMO, Fanta) into their own column, so that information isn't lost.</li>
+              <li>Rebuilt each category from the product, so a product always sits in one category.</li>
+              <li>Removed currency text, then recalculated every total that didn't equal quantity × unit price.</li>
+              <li>Unified payment methods into M-Pesa, Card and Cash. The 19 sales with no price stay blank, because an invented price would distort revenue.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="ba">
+          <p class="ba-cap">Before and after, two transactions from the file</p>
+          <div class="ba-scroll">
+            <table>
+              <thead><tr><th scope="col"></th><th scope="col">Transaction</th><th scope="col">Date</th><th scope="col">Product</th><th scope="col">Unit price</th><th scope="col">Total</th><th scope="col">Payment</th></tr></thead>
+              <tbody>
+                <tr><td class="row-label">Before</td><td>TXN-2025-000248</td><td><span class="d">May 28, 2025</span></td><td><span class="d">Washing Bar 800g</span></td><td><span class="d">Sh. 214</span></td><td><span class="d">0.21</span></td><td>Cash</td></tr>
+                <tr><td class="row-label">After</td><td>TXN-2025-000248</td><td><span class="c">2025-05-28</span></td><td><span class="c">Bar soap 800g</span></td><td><span class="c">214.00</span></td><td><span class="c">214.00</span></td><td>Cash</td></tr>
+                <tr><td class="row-label">Before</td><td>TXN-2025-000226</td><td><span class="d">Jan 26, 2025</span></td><td><span class="d">Barsoap 800g</span></td><td>270.72</td><td>812.16</td><td><span class="d">Card (Visa)</span></td></tr>
+                <tr><td class="row-label">After</td><td>TXN-2025-000226</td><td><span class="c">2025-01-26</span></td><td><span class="c">Bar soap 800g</span></td><td>270.72</td><td>812.16</td><td><span class="c">Card</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="result">Result: 300 raw rows became 285 unique transactions with correct dates, prices and totals.</p>
+        <div class="files">
+          <a class="file" href="https://drive.google.com/file/d/1_6yKqm8oLp_9wLYK1O-B1c53Anf0a807/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 1.5h5l3 3v10H4z"/><path d="M9 1.5v3h3"/></svg>OpenRefine process screenshots</a>
+          <a class="file" href="https://drive.google.com/file/d/1ku66vlKZZUFmGk6k5NmJ-CNmb2btk8d_/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>Raw data</a>
+          <a class="file" href="https://docs.google.com/spreadsheets/d/1rm0Do3LlMj3GKive8JSNq8RCEGXI7Fouo7GBuYQQhlE/edit?usp=sharing"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>Cleaned data</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="grid">
+      <!-- Churn dashboard -->
+      <article class="card span-7" aria-labelledby="churn-title">
+        <h3 id="churn-title">Telecom customer churn dashboard</h3>
+        <p class="meta">Power BI, synthetic Safaricom-style customer data</p>
+        <p>Telecom companies lose revenue every time a subscriber leaves. I cleaned a customer dataset and built an interactive Power BI dashboard to show who churns and what they have in common, so a retention team knows where to focus.</p>
+        <ul class="tools" aria-label="Tools used"><li>Power BI</li><li>Data cleaning</li></ul>
+        <div class="schema" aria-label="Fields in the dataset">
+          <div><h4>Customer</h4><p>Age<br>Gender<br>Region<br>Tenure (months)</p></div>
+          <div><h4>Plan and spend</h4><p>Prepaid / Postpaid / Hybrid<br>Monthly spend<br>M-Pesa or airtime</p></div>
+          <div><h4>Usage</h4><p>Data (GB)<br>Voice minutes<br>SMS count</p></div>
+          <div><h4>Service experience</h4><p>Support calls<br>Complaints logged<br>Last interaction</p></div>
+          <div class="outcome"><h4>Outcome</h4><p>Churned: yes / no</p></div>
+        </div>
+        <details>
+          <summary>Questions the dashboard answers</summary>
+          <div class="inner">
+            <ul class="questions">
+              <li>Which regions and plan types lose the most customers?</li>
+              <li>Do customers who call support or log complaints leave more often?</li>
+              <li>How do tenure, monthly spend and data usage differ between customers who stay and those who leave?</li>
+            </ul>
+          </div>
+        </details>
+        <div class="files push">
+          <a class="file" href="https://drive.google.com/file/d/1yWxZSON2VnTN_jeXo8owMCwYJrtoR9M1/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 13V8M7 13V4M11 13V6M14 13H2"/></svg>Dashboard file (.pbix)</a>
+          <a class="file" href="https://drive.google.com/file/d/1HfrLLi0U7e5gPbSyE0eEfB4FJKacvR1P/view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 6h12M2 10h12M6 2v12"/></svg>Cleaned data</a>
+        </div>
+      </article>
+
+      <!-- SQL -->
+      <article class="card span-5" aria-labelledby="sql-title">
+        <h3 id="sql-title">Hospital and clinic databases in SQL</h3>
+        <p class="meta">PostgreSQL on Supabase, two projects</p>
+        <p>I designed relational databases for a hospital and a clinic, with linked tables, sample data and test queries.</p>
+        <svg class="erd" viewBox="0 0 360 190" role="img" aria-label="Entity relationship diagram: a patient has many appointments, a doctor has many appointments, and an appointment has many treatments.">
+          <defs><marker id="crow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="none" stroke="#1E5A47" stroke-width="1.4"/></marker></defs>
+          <g font-size="12">
+            <rect x="8" y="14" width="104" height="56" rx="7" fill="#fff" stroke="#C9D3CE"/><text x="20" y="34" font-weight="700" fill="#18231F">Patients</text><text x="20" y="54" fill="#56635D" font-size="11">patient_id (PK)</text>
+            <rect x="248" y="14" width="104" height="56" rx="7" fill="#fff" stroke="#C9D3CE"/><text x="260" y="34" font-weight="700" fill="#18231F">Doctors</text><text x="260" y="54" fill="#56635D" font-size="11">doctor_id (PK)</text>
+            <rect x="118" y="100" width="124" height="74" rx="7" fill="#123C30"/><text x="130" y="120" font-weight="700" fill="#fff">Appointments</text><text x="130" y="138" fill="#B8CEC3" font-size="11">patient_id (FK)</text><text x="130" y="154" fill="#B8CEC3" font-size="11">doctor_id (FK)</text>
+            <rect x="268" y="118" width="86" height="56" rx="7" fill="#fff" stroke="#C9D3CE"/><text x="278" y="138" font-weight="700" fill="#18231F">Treatments</text><text x="278" y="158" fill="#56635D" font-size="11">appt (FK)</text>
+            <path d="M60 70 L60 122 L116 122" fill="none" stroke="#1E5A47" stroke-width="1.4" marker-end="url(#crow)"/>
+            <path d="M300 70 L300 92 L200 92 L200 98" fill="none" stroke="#1E5A47" stroke-width="1.4" marker-end="url(#crow)"/>
+            <path d="M242 146 L266 146" fill="none" stroke="#1E5A47" stroke-width="1.4" marker-end="url(#crow)"/>
+          </g>
+        </svg>
+        <details>
+          <summary>What each database does</summary>
+          <div class="inner">
+            <p><strong>Hospital database.</strong> Four tables (patients, doctors, appointments and treatments) joined by foreign keys, with a data dictionary, an entity relationship diagram and sample queries, such as all appointments for one patient or every completed appointment.</p>
+            <p><strong>Clinic database.</strong> Adds access control with Supabase authentication and row-level security. Patients can only read their own records, while doctors manage appointments and treatments.</p>
+          </div>
+        </details>
+        <div class="files push">
+          <a class="file" href="https://github.com/Emillio-James/Hospital-SQL-Project"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .2a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7 0-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1 0-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.5 7.5 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.8-3.6 4 .3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 .2z"/></svg>Hospital database</a>
+          <a class="file" href="https://github.com/Emillio-James/Clinic-Database-System-SQL-project"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .2a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7 0-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1 0-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.5 7.5 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.8-3.6 4 .3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 .2z"/></svg>Clinic database</a>
+        </div>
+      </article>
+
+      <!-- Excel used cars -->
+      <article class="card span-5" aria-labelledby="car-title">
+        <h3 id="car-title">Used-car listings analysis in Excel</h3>
+        <p class="meta">Excel, Data Entry &amp; Analysis course, 2026</p>
+        <p>Car names, colours and prices needed tidying before anything could be counted. I added helper columns to extract the manufacturer, map each make to its country, standardise colours and turn price text into numbers, then summarised the market.</p>
+        <ul class="tools" aria-label="Tools used"><li>Excel formulas</li><li>Lookups</li><li>Summary tables</li></ul>
+        <div class="bars" role="img" aria-label="Cars per manufacturer: BMW 7, Lexus 3, Audi 2, Mercedes 2, Tesla 1, Volvo 1, Cadillac 1, Jaguar 1">
+          <div class="bar-row top"><span class="lbl">BMW</span><span class="bar-track"><span class="bar-fill" style="width:100%;display:block"></span></span><span class="n">7</span></div>
+          <div class="bar-row"><span class="lbl">Lexus</span><span class="bar-track"><span class="bar-fill" style="width:42.9%;display:block"></span></span><span class="n">3</span></div>
+          <div class="bar-row"><span class="lbl">Audi</span><span class="bar-track"><span class="bar-fill" style="width:28.6%;display:block"></span></span><span class="n">2</span></div>
+          <div class="bar-row"><span class="lbl">Mercedes</span><span class="bar-track"><span class="bar-fill" style="width:28.6%;display:block"></span></span><span class="n">2</span></div>
+          <div class="bar-row"><span class="lbl">4 others</span><span class="bar-track"><span class="bar-fill" style="width:14.3%;display:block"></span></span><span class="n">1 each</span></div>
+        </div>
+        <details>
+          <summary>What I found</summary>
+          <div class="inner">
+            <div class="facts">
+              <div><b>BMW</b><span>Most listed make, 7 of 18 cars</span></div>
+              <div><b>Germany</b><span>Country of origin for 11 of 18 cars</span></div>
+              <div><b>Yellow</b><span>Least common colour, 1 car</span></div>
+            </div>
+            <p style="margin-bottom:6px">Average price by number of previous owners (USD):</p>
+            <table class="owner-table">
+              <tr><td>1st owner</td><td>36,514</td></tr>
+              <tr><td>2nd owner</td><td>30,718</td></tr>
+              <tr class="hi"><td>3rd owner</td><td>63,746</td></tr>
+              <tr><td>4th owner</td><td>22,520</td></tr>
+            </table>
+            <p style="color:var(--muted);font-size:14.5px">Third-owner cars averaged the highest price because the group includes a 2020 Mercedes S-Class. With only 18 cars, one expensive listing can move an average this much, and that's worth saying out loud in any report.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Research -->
+      <article class="card span-7" aria-labelledby="res-title">
+        <h3 id="res-title">Economic growth and household debt in Kenya, 2010–2023</h3>
+        <p class="meta">Economics research, Karatina University</p>
+        <p>As household borrowing grew alongside mobile money and digital credit, I designed a study to test whether Kenya's economic growth drives household debt, or the other way round. I set out the data plan and the econometric method.</p>
+        <ul class="tools" aria-label="Methods"><li>Time-series econometrics</li><li>Secondary data</li><li>Literature review</li></ul>
+        <h4>Method, step by step</h4>
+        <ol class="chain" aria-label="Analysis sequence">
+          <li>Collect time series from CBK, KNBS, IMF and World Bank</li><li class="arrow" aria-hidden="true">›</li>
+          <li>Unit root tests (ADF, Phillips–Perron)</li><li class="arrow" aria-hidden="true">›</li>
+          <li>Johansen cointegration</li><li class="arrow" aria-hidden="true">›</li>
+          <li>VECM or ARDL model</li><li class="arrow" aria-hidden="true">›</li>
+          <li>Granger causality</li><li class="arrow" aria-hidden="true">›</li>
+          <li>Diagnostic tests</li>
+        </ol>
+        <details>
+          <summary>Variables and data sources</summary>
+          <div class="inner">
+            <ul>
+              <li><strong>Growth and prices:</strong> real GDP growth, inflation and private consumption (KNBS)</li>
+              <li><strong>Debt and credit:</strong> household debt, private-sector credit, non-performing loans and lending rates (Central Bank of Kenya)</li>
+              <li><strong>Financial inclusion:</strong> account access, mobile money and digital credit uptake (FinAccess surveys, FSD Kenya)</li>
+              <li><strong>Cross-checks:</strong> IMF and World Bank series to verify national figures</li>
+            </ul>
+            <p>Quarterly data gives up to 56 observations for 2010–2023, enough to separate short-run swings from long-run relationships.</p>
+          </div>
+        </details>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="exp" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p>Where I use data skills at work: checking records against source systems, building tidy files from scattered documents and loading data into Power BI.</p>
+    </div>
+
+    <div class="role">
+      <div>
+        <p class="org">Africa Digital Media Institute (ADMI)</p>
+        <p class="when">Intern, Admissions and Academic Records<br>Current</p>
+      </div>
+      <ul>
+        <li>Check and correct graduating students' transcripts programme by programme against exports from the student information system, and keep a log of unresolved cases for decision.</li>
+        <li>Load the institution's enrolment workbook into Power BI to confirm student details across intakes.</li>
+        <li>Processed application records for two cohorts of 51 and 23 students: merged each student's documents into one PDF and extracted former secondary schools from KCSE results and application forms.</li>
+        <li>Supported preparation of the 2026 graduation lists.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div>
+        <p class="org">CloudFactory</p>
+        <p class="when">Contract<br>Until September 2026</p>
+      </div>
+      <ul>
+        <li>Remote data work on AI projects, following detailed quality guidelines and accuracy targets.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOOLKIT ================= -->
+<section id="toolkit">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Toolkit</h2>
+      <p>Grouped by the job each tool does in my work, with the project where you can see it in use.</p>
+    </div>
+    <div class="kit">
+      <div>
+        <h3>Clean</h3>
+        <p class="sub">Getting data trustworthy</p>
+        <ul>
+          <li>Python: pandas, NumPy<span>All three cleaning projects</span></li>
+          <li>OpenRefine and GREL<span>Exploring the loan and sales data</span></li>
+          <li>Excel text and lookup formulas<span>Used-car listings</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Store and query</h3>
+        <p class="sub">Structuring data so it can be asked questions</p>
+        <ul>
+          <li>SQL (PostgreSQL)<span>Hospital and clinic databases</span></li>
+          <li>Supabase, row-level security<span>Clinic database</span></li>
+          <li>Database design, ERDs<span>Hospital database</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Analyse</h3>
+        <p class="sub">Finding what the numbers say</p>
+        <ul>
+          <li>Excel: VLOOKUP, HLOOKUP, summaries<span>Excel course, used cars</span></li>
+          <li>Time-series econometrics<span>Household debt research</span></li>
+          <li>Google Sheets<span>Course work</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Show</h3>
+        <p class="sub">Making results easy to read</p>
+        <ul>
+          <li>Power BI dashboards<span>Customer churn, ADMI enrolment</span></li>
+          <li>Excel charts<span>Course work</span></li>
+          <li>Clear write-ups<span>Every project above</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section id="education" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education and certificates</h2>
+      <p>A degree in economics for the statistics and the business questions, plus practical training in today's data tools.</p>
+    </div>
+    <div class="edu">
+      <div class="edu-item"><span class="yr">Degree</span><div><h3>Bachelor of Economics</h3><p>Karatina University. Economic statistics, macroeconomics and a research project on household debt.</p></div></div>
+      <div class="edu-item"><span class="yr">2025</span><div><h3>Certificate in Data Analysis &amp; Visualization</h3><p>Africa Digital Media Institute (ADMI). Data cleaning, SQL, Power BI and data tools.</p></div></div>
+      <div class="edu-item"><span class="yr">2026</span><div><h3>Data Entry &amp; Analysis using Excel</h3><p>Ajira Digital mentorship programme, Cohort 9A. Advanced Excel, lookups, what-if analysis and data collection.</p></div></div>
+      <div class="edu-item"><span class="yr">2026</span><div><h3>Introduction to Python</h3><p>DataCamp, through the Data Community Africa × DataCamp scholarship. <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/eddc61ee4f1d92c43f982570c94c23b4077ecdc6">View statement of accomplishment</a></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Have data that needs sorting out?</h2>
+      <p>I'm looking for data analyst and data operations roles in Nairobi or remote. Email is the quickest way to reach me.</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-row">
+        <div><span class="lab">Email</span><a href="mailto:emmjayjames@gmail.com" id="emailLink">emmjayjames@gmail.com</a></div>
+        <button class="copy" id="copyEmail" type="button">Copy</button>
+      </div>
+      <div class="contact-row">
+        <div><span class="lab">GitHub</span><a href="https://github.com/Emillio-James">github.com/Emillio-James</a></div>
+      </div>
+      <div class="contact-row">
+        <div><span class="lab">Location</span><span class="val">Nairobi, Kenya</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 James Mwai</span>
+    <span>Last updated October 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Mobile menu
+  var nav=document.getElementById('nav'),btn=document.getElementById('menuBtn');
+  btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+  document.querySelectorAll('#navList a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');btn.setAttribute('aria-expanded','false')})});
+
+  // Hero row demo
+  var cells=[].slice.call(document.querySelectorAll('#demoCells .cell'));
+  var toggle=document.getElementById('demoToggle');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clean=false,timers=[];
+  function setCell(c,isClean){
+    var v=c.querySelector('.v');
+    v.textContent=isClean?v.getAttribute('data-clean'):v.getAttribute('data-dirty');
+    c.classList.toggle('is-clean',isClean);
+  }
+  function run(toClean,animate){
+    timers.forEach(clearTimeout);timers=[];
+    clean=toClean;
+    toggle.textContent=toClean?'Show the original':'Clean this row';
+    toggle.setAttribute('aria-pressed',toClean);
+    cells.forEach(function(c,i){
+      if(animate){timers.push(setTimeout(function(){setCell(c,toClean)},i*260))}
+      else setCell(c,toClean);
+    });
+  }
+  toggle.addEventListener('click',function(){run(!clean,!reduce)});
+  if(!reduce){setTimeout(function(){if(!clean)run(true,true)},1400)}
+
+  // Tabs
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(t,focus){
+    tabs.forEach(function(x){
+      var on=x===t;
+      x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+    if(focus)t.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t)});
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight')n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];
+      if(e.key==='Home')n=tabs[0];
+      if(e.key==='End')n=tabs[tabs.length-1];
+      if(n){e.preventDefault();select(n,true)}
     });
   });
 
-  /* ── Project Modals ── */
-  const projects = {
-    p1: {
-      type: 'Data Cleaning',
-      title: 'Multi-Tool Data Cleaning Project',
-      tags: ['Excel', 'Python Pandas', 'OpenRefine', 'NumPy'],
-      body: `
-        <p>This project demonstrates my ability to tackle dirty, real-world datasets using three different tools depending on the scale and complexity of the cleaning task.</p>
-        <p><strong>Microsoft Excel</strong> was used for quick formatting fixes — removing duplicates, correcting inconsistent date formats, and handling simple missing values using filters and formulas.</p>
-        <p><strong>Python (Pandas &amp; NumPy)</strong> was used for more advanced cleaning: handling nulls, detecting outliers, standardizing column names, and reshaping datasets for analysis.</p>
-        <p><strong>OpenRefine</strong> was used for large-scale text normalization — clustering similar values, fixing encoding issues, and performing batch transformations.</p>
-        <p>The end result was a clean, consistent dataset ready for analysis and visualization.</p>
-      `,
-      github: null
-    },
-    p2: {
-      type: 'SQL · Database Design',
-      title: 'Hospital Database System',
-      tags: ['SQL', 'Relational DB', 'Schema Design', 'Data Tools Final Exam'],
-      body: `
-        <p>This was my <strong>Data Tools final exam project</strong> — a full relational hospital database designed and built from scratch in SQL.</p>
-        <p>The database covers core hospital operations including <strong>patient records</strong>, <strong>doctor profiles</strong>, <strong>wards</strong>, <strong>admissions</strong>, and <strong>medical procedures</strong>. Tables were normalized to eliminate redundancy.</p>
-        <p>Key SQL skills demonstrated include: CREATE TABLE with primary/foreign keys, INSERT statements, complex JOIN queries, GROUP BY aggregations, and subqueries for reporting.</p>
-      `,
-      github: 'https://github.com/jameskins-svg/Hospital-SQL-Project'
-    },
-    p3: {
-      type: 'SQL · Database Design',
-      title: 'Clinic Database System',
-      tags: ['SQL', 'Relational DB', 'Healthcare Data', 'Schema Design'],
-      body: `
-        <p>A full clinic management database built in SQL, modelling real-world healthcare workflows end to end.</p>
-        <p>The schema covers <strong>patient registration</strong>, <strong>doctor profiles</strong>, <strong>appointment scheduling</strong>, <strong>prescription records</strong>, and <strong>billing</strong> — all linked via properly constrained foreign keys.</p>
-        <p>This project showcases schema design thinking, referential integrity, and practical SQL query writing for healthcare data scenarios.</p>
-      `,
-      github: 'https://github.com/jameskins-svg/Clinic-Database-System-SQL-project'
-    },
-    p4: {
-      type: 'Data Visualization',
-      title: 'Interactive Power BI Dashboard',
-      tags: ['Power BI', 'Interactive Dashboards', 'Data Storytelling', 'Business Intelligence'],
-      body: `
-        <p>This project showcases my ability to take a raw dataset and transform it into a compelling, interactive Power BI dashboard that tells a clear data story.</p>
-        <p>The dashboard features <strong>slicers and filters</strong> for dynamic exploration, <strong>KPI cards</strong> for at-a-glance metrics, and <strong>bar and line charts</strong> for trend analysis.</p>
-        <p>The design prioritized <strong>clarity and usability</strong> — making it easy for non-technical stakeholders to interact with the data and draw their own conclusions.</p>
-        <p>Key skills demonstrated: data modelling in Power BI, DAX measures, visual hierarchy, and storytelling with data.</p>
-      `,
-      github: null
-    }
-  };
-
-  function openModal(id) {
-    const p = projects[id];
-    const ghBtn = p.github
-      ? '<a href="' + p.github + '" target="_blank" class="modal-gh-btn">🐙 View on GitHub →</a>'
-      : '<p class="modal-no-link">📁 Source files available on request</p>';
-    const tagsHtml = p.tags.map(t => '<span class="modal-tag">' + t + '</span>').join('');
-    document.getElementById('modalContent').innerHTML =
-      '<div class="modal-type">' + p.type + '</div>' +
-      '<div class="modal-title">' + p.title + '</div>' +
-      '<div class="modal-tags">' + tagsHtml + '</div>' +
-      '<div class="modal-body">' + p.body + '</div>' +
-      '<div class="modal-divider"></div>' +
-      ghBtn;
-    document.getElementById('modalOverlay').classList.add('open');
-    document.getElementById('modalBox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('open');
-    document.getElementById('modalBox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
+  // Copy email
+  var cp=document.getElementById('copyEmail');
+  cp.addEventListener('click',function(){
+    var done=function(msg){cp.textContent=msg;setTimeout(function(){cp.textContent='Copy'},1800)};
+    try{
+      navigator.clipboard.writeText('emmjayjames@gmail.com').then(function(){done('Copied')},function(){done('Select it')});
+    }catch(e){done('Select it')}
   });
+
+  // Highlight current section in nav
+  var links={};document.querySelectorAll('#navList a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          Object.keys(links).forEach(function(k){links[k].removeAttribute('aria-current')});
+          if(links[e.target.id])links[e.target.id].setAttribute('aria-current','true');
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(links).forEach(function(k){var s=document.getElementById(k);if(s)io.observe(s)});
+  }
+})();
 </script>
 </body>
 </html>
